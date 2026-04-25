@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using PasswordHashing.Hasher;
 
 namespace PasswordHashing.Extensions;
@@ -31,9 +31,9 @@ public static class DependencyInjection
         {
             options.SaltSize = 16;
             options.HashSize = 32;
-            options.Iterations = 3;
+            options.Iterations = 6;
             options.MemorySizeInBytes = 65536;
-            options.DegreeOfParallelism = 2;
+            options.DegreeOfParallelism = Environment.ProcessorCount;
         });
 
         if (configuration is not null)
