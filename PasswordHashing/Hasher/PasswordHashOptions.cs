@@ -1,4 +1,4 @@
-﻿namespace PasswordHashing.Hasher;
+namespace PasswordHashing.Hasher;
 
 /// <summary>
 /// Represents configuration options for password hashing.
@@ -25,8 +25,8 @@ public class PasswordHashOptions
     /// Gets or sets the number of iterations (time cost) used during hashing.
     /// Increasing this value makes hashing slower, improving resistance to brute-force attacks.
     /// </summary>
-    /// <value>Default is 3 iterations.</value>
-    public int Iterations { get; set; } = 3;
+    /// <value>Default is 6 iterations.</value>
+    public int Iterations { get; set; } = 6;
 
     /// <summary>
     /// Gets or sets the amount of memory (in bytes) used by the hashing algorithm.
@@ -39,6 +39,6 @@ public class PasswordHashOptions
     /// Gets or sets the degree of parallelism (number of threads) used during hashing.
     /// Higher values can improve performance on multi-core systems.
     /// </summary>
-    /// <value>Default is 2.</value>
-    public int DegreeOfParallelism { get; set; } = 2;
+    /// <value>Default value depends on the number of available processors to the current process.</value>
+    public int DegreeOfParallelism { get; set; } = Environment.ProcessorCount;
 }
