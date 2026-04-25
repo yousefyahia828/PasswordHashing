@@ -1,4 +1,4 @@
-﻿namespace PasswordHashing.Helpers;
+namespace PasswordHashing.Helpers;
 
 internal static class PhcParser
 {
@@ -6,16 +6,19 @@ internal static class PhcParser
     {
         try
         {
-            string[] parts = passwordHash.Split('$');
+            string[] parts = passwordHash.Split('$', StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length != 5)
                 return null;
 
-            string parameters = parts[2];
+            string[] parameters = parts[2].Split(',', StringSplitOptions.RemoveEmptyEntries);
 
-            int memorySize = int.Parse(parameters.Split(',')[0]);
-            int iterations = int.Parse(parameters.Split(',')[1]);
-            int parallelism = int.Parse(parameters.Split(',')[2]);
+            if (parameters.Length != 3)
+                return null;
+
+            int memorySize = int.Parse(parameters[0].Split('=')[1]);
+            int iterations = int.Parse(parameters[1].Split('=')[1]);
+            int parallelism = int.Parse(parameters[2].Split('=')[1]);
 
             byte[] salt = Convert.FromBase64String(parts[3]);
             byte[] hash = Convert.FromBase64String(parts[4]);
